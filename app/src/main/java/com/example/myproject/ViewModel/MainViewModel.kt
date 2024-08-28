@@ -20,6 +20,7 @@ class MainViewModel():ViewModel() {
 
     val category:LiveData<MutableList<CategoryModel>> = _category
     val doctors:LiveData<MutableList<DoctorsModel>> = _doctors
+
     fun loadCategory(){
         val Ref=firebaseDatabase.getReference("Category")
         Ref.addValueEventListener(object :ValueEventListener{
@@ -41,5 +42,26 @@ class MainViewModel():ViewModel() {
         })
     }
     fun loadDoctors(){
+        val Ref = firebaseDatabase.getReference("Doctors")
+        Ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<DoctorsModel>()
+
+                for (childSnapshot in snapshot.children){
+                    val list = childSnapshot.getValue(DoctorsModel::class.java)
+
+                    if(list!=null){
+                        lists.add(list)
+                    }
+                }
+                _doctors.value = lists
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
     }
 }

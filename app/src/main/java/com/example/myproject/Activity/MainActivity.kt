@@ -10,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myproject.Adapter.CategoryAdapter
+import com.example.myproject.Adapter.TopDoctorAdapter
+import com.example.myproject.Domain.DoctorsModel
 import com.example.myproject.R
 import com.example.myproject.ViewModel.MainViewModel
 import com.example.myproject.databinding.ActivityMainBinding
@@ -24,6 +26,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initCategory()
+        initTopDoctors()
+    }
+
+    private fun initTopDoctors() {
+        binding.apply {
+            progressBarTopDoctor.visibility = View.VISIBLE
+            viewModel.doctors.observe(this@MainActivity, Observer{
+                recyclerViewTopDoctor.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewTopDoctor.adapter = TopDoctorAdapter(it)
+                progressBarTopDoctor.visibility = View.GONE
+            })
+            viewModel.loadDoctors()
+        }
     }
 
     private fun initCategory() {

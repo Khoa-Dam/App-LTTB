@@ -1,6 +1,7 @@
 package com.example.myproject.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.myproject.Activity.DetailActivity
 import com.example.myproject.Domain.DoctorsModel
 import com.example.myproject.databinding.ViewholderCategoryBinding
 import com.example.myproject.databinding.ViewholderTopDoctorBinding
@@ -36,6 +38,12 @@ class TopDoctorAdapter(val items:MutableList<DoctorsModel>):RecyclerView.Adapter
             .load(items[position].Picture)
             .apply { RequestOptions().transform(CenterCrop()) }
             .into(holder.binding.img)
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("object",items[position])
+            context?.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = items.size

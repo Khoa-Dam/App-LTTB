@@ -13,7 +13,7 @@ data class DoctorsModel(
     val Expriense:Int=0,
     val Location:String="",
     val Mobile:String="",
-    val patiens:String="",
+    val Patiens:String="",
     val Rating:Double=0.0,
     val Site:String=""
 ):Parcelable {
@@ -43,7 +43,7 @@ data class DoctorsModel(
         parcel.writeInt(Expriense)
         parcel.writeString(Location)
         parcel.writeString(Mobile)
-        parcel.writeString(patiens)
+        parcel.writeString(Patiens)
         parcel.writeDouble(Rating)
         parcel.writeString(Site)
     }

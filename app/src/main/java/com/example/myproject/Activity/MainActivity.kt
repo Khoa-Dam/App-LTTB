@@ -1,5 +1,6 @@
 package com.example.myproject.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
                 progressBarTopDoctor.visibility = View.GONE
             })
             viewModel.loadDoctors()
+
+            doctorListTxt.setOnClickListener {
+                startActivity(Intent(this@MainActivity, TopDoctorsActivity::class.java))
+            }
         }
     }
 

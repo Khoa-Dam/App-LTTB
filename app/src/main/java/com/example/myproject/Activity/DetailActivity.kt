@@ -3,6 +3,7 @@ package com.example.myproject.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.myproject.Domain.DoctorsModel
 import com.example.myproject.databinding.ActivityDetailBinding
@@ -25,10 +26,12 @@ class DetailActivity : BaseActivity() {
             titleTxt.text = item.Name
             specialTxt.text = item.Special
             patiensTxt.text = item.Patiens
-            bioTxt.text = item.BioGraphy
+            bioTxt.text = item.Biography
             addressTxt.text = item.Address
             experienceTxt.text = item.Expriense.toString()+" Years"
             ratingTxt.text = "${item.Rating}"
+            Log.d("DetailActivity", "BioGraphy: ${item.Biography}")
+
             backBtn.setOnClickListener {finish()}
 
             websiteBtn.setOnClickListener {

@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 data class DoctorsModel(
     val Address:String = "",
-    val BioGraphy:String ="",
+    val Biography:String ="",
     val Id:Int=0,
     val Name:String="",
     val Picture:String="",
@@ -35,7 +35,7 @@ data class DoctorsModel(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(Address)
-        parcel.writeString(BioGraphy)
+        parcel.writeString(Biography)
         parcel.writeInt(Id)
         parcel.writeString(Name)
         parcel.writeString(Picture)

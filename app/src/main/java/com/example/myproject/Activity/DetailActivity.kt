@@ -42,7 +42,7 @@ class DetailActivity : BaseActivity() {
             messageBtn.setOnClickListener{
                 val uri = Uri.parse("smsto:${item.Mobile}")
                 val intent = Intent(Intent.ACTION_SENDTO,uri)
-                intent.putExtra("sms_body", "the SMS text")
+                intent.putExtra("sms_body", "Đặt lịch hẹn")
                 startActivity(intent)
             }
             callBtn.setOnClickListener{
@@ -63,6 +63,14 @@ class DetailActivity : BaseActivity() {
                 intent.putExtra(Intent.EXTRA_SUBJECT, item.Name)
                 intent.putExtra(Intent.EXTRA_TEXT, item.Name + " " + item.Address + " "+ item.Mobile)
                 startActivity(Intent.createChooser(intent, "Choose one"))
+            }
+
+
+            makeBtn.setOnClickListener(){
+                val uri = Uri.parse("smsto:${item.Mobile}")
+                val intent = Intent(Intent.ACTION_SENDTO,uri)
+                intent.putExtra("sms_body", "Đặt lịch hẹn")
+                startActivity(intent)
             }
             Glide.with(this@DetailActivity)
                 .load(item.Picture)

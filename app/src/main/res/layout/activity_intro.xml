@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
-        android:text="@string/exceptional_care_close_yo_you"
+        android:text="Health is the most precious thing."
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="34sp"

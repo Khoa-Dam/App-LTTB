@@ -76,7 +76,7 @@
                     app:srcCompat="@drawable/banner" />
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/editTextSearch"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="32dp"

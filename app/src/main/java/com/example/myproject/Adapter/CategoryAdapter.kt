@@ -8,11 +8,14 @@ import com.bumptech.glide.Glide
 import com.example.myproject.Domain.CategoryModel
 import com.example.myproject.databinding.ViewholderCategoryBinding
 
-class CategoryAdapter(val items:MutableList<CategoryModel>) :
-    RecyclerView.Adapter<CategoryAdapter.Viewholder>() {
+class CategoryAdapter(
+    val items: MutableList<CategoryModel>,
+    private val onItemClick: (CategoryModel) -> Unit // Hàm xử lý click
+) : RecyclerView.Adapter<CategoryAdapter.Viewholder>() {
+
     private lateinit var context: Context
 
-   inner class Viewholder(val binding: ViewholderCategoryBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class Viewholder(val binding: ViewholderCategoryBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.Viewholder {
         context = parent.context
@@ -24,6 +27,9 @@ class CategoryAdapter(val items:MutableList<CategoryModel>) :
         val item = items[position]
         holder.binding.titleTxt.text = item.Name
 
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
+        }
 
         Glide.with(context)
             .load(item.Picture)

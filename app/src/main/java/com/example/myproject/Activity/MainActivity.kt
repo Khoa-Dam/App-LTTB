@@ -2,6 +2,8 @@ package com.example.myproject.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -28,6 +30,16 @@ class MainActivity : AppCompatActivity() {
 
         initCategory()
         initTopDoctors()
+        binding.editTextSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val query = s.toString()
+                filterCategories(query)
+                filterDoctors(query)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     private fun initTopDoctors() {
@@ -49,13 +61,51 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initCategory() {
-        binding.progressBarCategory.visibility=View.VISIBLE
-        viewModel.category.observe(this, Observer{
-            binding.viewCategory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-            binding.viewCategory.adapter = CategoryAdapter(it)
-            binding.progressBarCategory.visibility = View.GONE
+private fun initCategory() {
+    binding.progressBarCategory.visibility = View.VISIBLE
+    viewModel.category.observe(this, Observer { categoryList ->
+        binding.viewCategory.layoutManager =
+            LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.viewCategory.adapter = CategoryAdapter(categoryList) { selectedCategory ->
+            filterDoctorsByCategory(selectedCategory.Name)
+        }
+
+        binding.progressBarCategory.visibility = View.GONE
+    })
+    viewModel.loadCategory()
+}
+
+    private fun filterDoctorsByCategory(categoryName: String) {
+        viewModel.doctors.observe(this, Observer { doctorList ->
+            val filteredDoctors = doctorList.filter { it.Special == categoryName }
+
+            binding.recyclerViewTopDoctor.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.recyclerViewTopDoctor.adapter = TopDoctorAdapter(filteredDoctors.toMutableList())
+
+            binding.progressBarTopDoctor.visibility = View.GONE
         })
-        viewModel.loadCategory()
     }
+    private fun filterCategories(query: String) {
+        viewModel.category.observe(this, Observer { categoryList ->
+            val filteredCategories = categoryList.filter {
+                it.Name.contains(query, ignoreCase = true)
+            }
+            binding.viewCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.viewCategory.adapter = CategoryAdapter(filteredCategories.toMutableList()) { selectedCategory ->
+                filterDoctorsByCategory(selectedCategory.Name)
+            }
+        })
+    }
+
+    private fun filterDoctors(query: String) {
+        viewModel.doctors.observe(this, Observer { doctorList ->
+            val filteredDoctors = doctorList.filter {
+                it.Name.contains(query, ignoreCase = true) || it.Special.contains(query, ignoreCase = true)
+            }
+            binding.recyclerViewTopDoctor.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.recyclerViewTopDoctor.adapter = TopDoctorAdapter(filteredDoctors.toMutableList())
+        })
+    }
+
 }

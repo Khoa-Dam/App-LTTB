@@ -43,6 +43,9 @@ class MainActivity : AppCompatActivity() {
             doctorListTxt.setOnClickListener {
                 startActivity(Intent(this@MainActivity, TopDoctorsActivity::class.java))
             }
+            WishList.setOnClickListener{
+                startActivity(Intent(this@MainActivity, TopDoctorsActivity::class.java))
+            }
         }
     }
 

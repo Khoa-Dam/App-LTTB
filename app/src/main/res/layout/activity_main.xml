@@ -34,10 +34,9 @@
                     tools:layout_marginEnd="16dp">
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hi, Người Việt Nam"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -304,6 +303,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Account"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"

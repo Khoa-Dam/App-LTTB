@@ -17,7 +17,7 @@ class IntroActivity : BaseActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if(!isActivityStarted){
                 isActivityStarted = true
-                startActivity(Intent(this@IntroActivity, MainActivity::class.java))
+                startActivity(Intent(this@IntroActivity, LoginActivity::class.java))
                 finish()
             }
         }, 5000)
@@ -26,7 +26,7 @@ class IntroActivity : BaseActivity() {
             startBtn.setOnClickListener{
                 if(!isActivityStarted){
                     isActivityStarted = true
-                    startActivity(Intent(this@IntroActivity, MainActivity::class.java))
+                    startActivity(Intent(this@IntroActivity, LoginActivity::class.java))
                     finish()
                 }
             }

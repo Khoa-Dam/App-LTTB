@@ -5,19 +5,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myproject.Adapter.CategoryAdapter
 import com.example.myproject.Adapter.TopDoctorAdapter
-import com.example.myproject.Domain.DoctorsModel
-import com.example.myproject.R
 import com.example.myproject.ViewModel.MainViewModel
 import com.example.myproject.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val name = intent.getStringExtra("name")
+        val email = intent.getStringExtra("email")
+        val password = intent.getStringExtra("password")
+        binding.textName.text = "Hi, $name"
 
         initCategory()
         initTopDoctors()
@@ -40,6 +41,14 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+
+        binding.Account.setOnClickListener {
+            val intent = Intent(this, AccountActivity::class.java)
+            intent.putExtra("name", name)
+            intent.putExtra("email", email)
+            intent.putExtra("password", password)
+            startActivity(intent)
+        }
     }
 
     private fun initTopDoctors() {
@@ -58,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             WishList.setOnClickListener{
                 startActivity(Intent(this@MainActivity, TopDoctorsActivity::class.java))
             }
+
         }
     }
 

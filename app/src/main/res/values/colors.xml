@@ -7,4 +7,6 @@
     <color name="darkPurple">#3F51B5</color>
     <color name="gray">#acacac</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="grey">#808080</color>
+    <color name="light_grey">#C0BDBD</color>
 </resources>
